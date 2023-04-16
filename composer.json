@@ -1,0 +1,19 @@
+{
+  "name": "cms/core",
+  "description": "Some simple CMS for small sites",
+  "version": "0.0.1",
+  "prefer-stable": true,
+  "config": {
+    "process-timeout": 0
+  },
+  "require": {
+    "php": ">=7.4 || ^8.0 || ^8.1 || ^8.2",
+    "ext-mbstring": "*",
+    "ext-pdo": "*",
+    "ext-pdo_mysql": "*",
+    "ext-json": "*"
+  },
+  "scripts": {
+    "start": "php -S localhost:8000"
+  }
+}

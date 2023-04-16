@@ -1,0 +1,23 @@
+; top-most EditorConfig file
+root = true
+
+# PHP PSR-2 Coding Standards
+# http://www.php-fig.org/psr/psr-2/
+
+; Unix-style newlines
+[*]
+end_of_line = lf
+charset = utf-8
+indent_size = 2
+indent_style = space
+
+[*.php]
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[{package.json,composer.json,*.yml,*.yaml}]
+insert_final_newline = false
+
+[*.md]
+trim_trailing_whitespace = false

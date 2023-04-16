@@ -1,0 +1,11 @@
+/logs/*
+!/logs/.gitkeep
+*.log
+
+/.env
+
+.DS_Store
+
+# Editor directories and files
+.idea
+.vscode
