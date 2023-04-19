@@ -43,7 +43,8 @@ abstract class BaseModel
      */
     protected $hidden = [];
 
-    public function __construct($id = null) {
+    public function __construct($id = null)
+    {
         if ($id) {
             $this->setId($id);
             $this->loadById($id);
@@ -56,7 +57,8 @@ abstract class BaseModel
      * @param $id
      * @return void
      */
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
@@ -65,11 +67,13 @@ abstract class BaseModel
      *
      * @return mixed
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function setData($data) {
+    public function setData($data)
+    {
         // remove id from data array
         if (isset($data['id'])) {
             unset($data['id']);
@@ -83,11 +87,13 @@ abstract class BaseModel
         }
     }
 
-    public function getData() {
+    public function getData()
+    {
         return $this->data;
     }
 
-    public function __get($key) {
+    public function __get($key)
+    {
         if ($key == 'id') {
             return $this->getId();
         }
@@ -95,7 +101,8 @@ abstract class BaseModel
         return $this->data[$key] ?? null;
     }
 
-    public function __set($key, $value) {
+    public function __set($key, $value)
+    {
         $this->data[$key] = $value;
 
         // change id
@@ -104,15 +111,23 @@ abstract class BaseModel
         }
     }
 
-    // Check if the model data has been changed
-    public function isDataChanged() {
+    /**
+     * Check if the model data has been changed
+     *
+     * @return bool
+     */
+    public function isDataChanged()
+    {
         return $this->data !== $this->originalData;
     }
 
-    // Update a record in the database
-    public function update() {
-        // var_dump(__METHOD__);
-
+    /**
+     * Update a record in the database
+     *
+     * @return void
+     */
+    public function update()
+    {
         // Check if the data has been changed
         if ($this->isDataChanged()) {
             // Implementation to update the record data in the database
@@ -131,15 +146,13 @@ abstract class BaseModel
         }
     }
 
-    // Reset the original data to the current data
-    public function resetOriginalData() {
-        $this->originalData = $this->data;
-    }
-
     /**
+     * Save the model
+     *
      * @return void
      */
-    public function save() {
+    public function save()
+    {
         if ($this->id) {
             $this->update();
         } else {
@@ -147,17 +160,13 @@ abstract class BaseModel
         }
     }
 
-    // Additional methods for CRUD operations (Create, Read, Update, Delete)
-    // Example methods:
-
-    //
-
     /**
      * Create a new record in the database
      *
      * @return void
      */
-    protected function saveNew() {
+    protected function saveNew()
+    {
         // remove id from data array
         if (isset($this->data['id'])) {
             unset($this->data['id']);
@@ -172,12 +181,13 @@ abstract class BaseModel
     }
 
     /**
-     * Delete a record from the database
+     * Create a new model and save it to the database
      *
      * @param array $data
      * @return static
      */
-    public static function create(array $data) {
+    public static function create(array $data)
+    {
         $model = new static();
 
         $model->setData($data);
@@ -186,8 +196,14 @@ abstract class BaseModel
         return $model;
     }
 
-    // Read a record from the database by ID
-    public function loadById($id) {
+    /**
+     * Load model data by id
+     *
+     * @param $id
+     * @return void
+     */
+    public function loadById($id)
+    {
         // Implementation to fetch a record from the database by ID
         $data = db()->queryOne('SELECT * FROM ' . $this->table . ' WHERE id = :id', ['id' => $id]);
         // var_dump($data);
@@ -205,7 +221,8 @@ abstract class BaseModel
      *
      * @return static|null
      */
-    public static function find($id) {
+    public static function find($id)
+    {
         $model = new static();
         $model->loadById($id);
 
@@ -213,11 +230,14 @@ abstract class BaseModel
     }
 
     /**
+     * Load model data by id or throw an exception if the model is not found
+     *
      * @param int $id
      * @return static
      * @throws \Exception
      */
-    public static function findOrFail($id) {
+    public static function findOrFail($id)
+    {
         $model = new static();
         $model->loadById($id);
 
@@ -229,11 +249,12 @@ abstract class BaseModel
     }
 
     /**
-     * Loads all records from the database
+     * Loads all records from the database into a collection
      *
      * @return Collection<static>
      */
-    public static function all() {
+    public static function all()
+    {
         $model = new static();
         $data = db()->query('SELECT * FROM ' . $model->table);
 
@@ -248,25 +269,39 @@ abstract class BaseModel
         return new Collection($list);
     }
 
-    // Delete a record from the database
-    public function delete() {
-        // Implementation to delete the record data from the database
-
+    /**
+     * Delete the model from the database
+     *
+     * @return void
+     */
+    public function delete()
+    {
         db()->deleteById($this->table, $this->id);
     }
 
-    public function toArray() {
+    /**
+     * Convert the model to an array
+     * Fields that are in the hidden array will be ignored
+     *
+     * @return array
+     */
+    public function toArray()
+    {
         $fields = ['id' => $this->id, ...$this->data];
 
-        // filter fields that will be ignored
+        // filter fields that will be not ignored
         return array_filter($fields, function ($key) {
             return !in_array($key, $this->hidden);
         }, ARRAY_FILTER_USE_KEY);
-
-        // return ['id' => $this->id, ...$this->data];
     }
 
-    public function toJson() {
+    /**
+     * Convert the model to JSON
+     *
+     * @return string
+     */
+    public function toJson()
+    {
         return json_encode($this->toArray());
     }
 }

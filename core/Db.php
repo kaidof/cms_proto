@@ -143,6 +143,11 @@ class Db
         return $stmt->rowCount();
     }
 
+    /**
+     * @param string $table
+     * @param int $id
+     * @return int Number of affected rows
+     */
     public function deleteById($table, $id)
     {
         $query = "DELETE FROM {$table} WHERE id = ?";

@@ -147,7 +147,7 @@ class Router
                             if (class_exists($middlewareClassName)) {
                                 $middlewareClass = new $middlewareClassName();
 
-                                if (is_callable([$middlewareClassName, 'handle'])) {
+                                if (!is_callable([$middlewareClassName, 'handle'])) {
                                     // throw exception
                                     throw new \Exception('Middleware class ' . $middlewareClassName . ' has no handle() method');
                                 }

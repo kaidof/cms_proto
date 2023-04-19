@@ -47,16 +47,7 @@ class Collection implements \IteratorAggregate
 
     public function toJson()
     {
-        // return json_encode($this->items);
-
-        // map items
-        return array_map(function ($item) {
-            if (is_object($item) && method_exists($item, 'toJson')) {
-                return $item->toJson();
-            }
-
-            return $item;
-        }, $this->items);
+        return json_encode($this->toArray());
     }
 
     public function toObject()
@@ -107,6 +98,16 @@ class Collection implements \IteratorAggregate
     public function isEmpty()
     {
         return empty($this->items);
+    }
+
+    /**
+     * Get all items from the collection.
+     *
+     * @return array
+     */
+    public function all()
+    {
+        return $this->items;
     }
 
 }
