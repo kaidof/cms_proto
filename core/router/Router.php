@@ -147,8 +147,7 @@ class Router
                             if (class_exists($middlewareClassName)) {
                                 $middlewareClass = new $middlewareClassName();
 
-                                if (!is_callable([$middlewareClassName, 'handle'])) {
-                                    // throw exception
+                                if (!is_callable([$middlewareClass, 'handle'])) {
                                     throw new \Exception('Middleware class ' . $middlewareClassName . ' has no handle() method');
                                 }
 
@@ -172,10 +171,6 @@ class Router
                 }
             }
         }
-
-        // FIXME: or throw exception?
-        //http_response_code(404);
-        //echo "Page not found";
 
         throw new NoRouteException('No route found for ' . $path);
     }
