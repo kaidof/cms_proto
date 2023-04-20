@@ -1,13 +1,5 @@
 
-<!--
-<div>
-    Pealkiri: <?= $title; ?>
-
-    <div>
-        <?= $content; ?>
-    </div>
-</div>
--->
+<?php view_set_layout('admin/layout') ?>
 
 <h2>News module</h2>
 

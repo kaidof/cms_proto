@@ -1,3 +1,6 @@
+
+<?php view_set_layout('admin/layout'); ?>
+
 <div>
 
 

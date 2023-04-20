@@ -212,6 +212,51 @@ if (!function_exists('app')) {
     }
 }
 
+if (!function_exists('view_set_layout')) {
+    /**
+     * Set the layout template for the current view
+     *
+     * @param string $tpl
+     * @param array $data
+     *
+     * @return void
+     */
+    function view_set_layout($tpl, $data = [])
+    {
+        \core\Template::setLayout($tpl, $data);
+    }
+}
+
+if (!function_exists('view_partial')) {
+    /**
+     * Render a partial view
+     *
+     * @param string $tpl
+     * @param array $data
+     *
+     * @return void
+     */
+    function view_partial($tpl, $data = [])
+    {
+        \core\Template::renderPartial($tpl, $data);
+    }
+}
+
+if (!function_exists('view_var')) {
+    /**
+     * Set view variable(s)
+     *
+     * @param mixed $name
+     * @param mixed $value
+     *
+     * @return void
+     */
+    function view_var($name, $value = null)
+    {
+        \core\Template::setVariable($name, $value);
+    }
+}
+
 
 
 /**

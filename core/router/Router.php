@@ -93,7 +93,7 @@ class Router
                 echo view('error', [
                     'error' => $e->getMessage(),
                     'trace' => app()->environment('development', 'testing') ? $e->getTraceAsString() : null,
-                ])->parent(null);
+                ]);
             }
         }
     }

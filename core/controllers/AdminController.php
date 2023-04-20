@@ -7,6 +7,8 @@ class AdminController extends AdminBaseController
 
     public function index()
     {
+        view_var('global1', 'Global_1');
+
         return view('admin/index', [
             'pageTitle' => 'Admin INDEX',
             'content' => 'This is the content',
@@ -24,7 +26,7 @@ class AdminController extends AdminBaseController
         return view('admin/login', [
             'pageTitle' => 'Admin Login',
             'content' => 'This is the content for login page',
-        ]); // ->parent('admin/layout'); // set layout for this view
+        ]);
     }
 
     public function loginPost()

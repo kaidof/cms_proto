@@ -10,8 +10,6 @@ class NewsController
 {
     public function __construct()
     {
-        Template::layout('admin/layout', [ 'pageTitle' => 'Admin' ]);
-
         // add admin css
         assets()->add(url()->getFullBaseUrl() . '/core/assets/css/admin.css', 'css');
     }
