@@ -34,7 +34,7 @@ class Env
     {
         $envFile = realpath(__DIR__ . '/../.env');
 
-        if (file_exists($envFile)) {
+        if ($envFile !== false && file_exists($envFile)) {
             $env = file_get_contents($envFile);
             $env = explode("\n", $env);
 
@@ -72,6 +72,8 @@ class Env
                     $_SERVER[$key] = $value;
                 }
             }
+        } else {
+            throw new \InvalidArgumentException('Environment file does not exist');
         }
     }
 

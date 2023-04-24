@@ -63,7 +63,7 @@ class NewsController
             ->addColumn('text', 'content', 'Article', 'text', [
                 'sortable' => true,
             ])
-            ->addColumn('enabled', 'enabled', 'Active', Datatable::TYPE_BOOLEAN, [
+            ->addColumn('enabled', 'enabled2', 'Active', Datatable::TYPE_BOOLEAN, [
                 'width' => '10%',
                 'sortable' => true,
                 'searchable' => true,

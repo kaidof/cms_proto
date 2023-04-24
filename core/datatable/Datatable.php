@@ -148,7 +148,6 @@ class Datatable
         // get database column name from options array
         $sortColumn = $this->getColumnNameById($sortColumn);
 
-
         // get current sort direction from request
         $sortDirection = request()->get('sortDirection', 'asc');
 
@@ -215,7 +214,7 @@ class Datatable
     public function getHtml()
     {
         $urlParams = $_GET;
-        $dir = $this->options['default_order_dir'] ?? 'asc';
+        $dir = request()->get('sortDirection', $this->options['default_order_dir'] ?? 'asc');
 
         $rows = $this->getRows();
 
@@ -232,7 +231,7 @@ class Datatable
                 // default_order_dir
 
                 $urlParams['sortColumn'] = $this->getColumnIdByName($column['field_name']);
-                $urlParams['sortDirection'] = ($urlParams['sortDirection'] ?? $dir) === 'asc' ? 'desc' : 'asc';
+                $urlParams['sortDirection'] = $dir === 'asc' ? 'desc' : 'asc';
 
                 // http_build_query($urlParams)
 
